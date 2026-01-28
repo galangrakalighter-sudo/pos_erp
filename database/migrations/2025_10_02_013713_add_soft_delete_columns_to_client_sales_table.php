@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('client_sales', function (Blueprint $table) {
+            // Add soft delete columns that are missing
+            if (!Schema::hasColumn('client_sales', 'deleted_at')) {
+                $table->timestamp('deleted_at')->nullable();
+            }
+            if (!Schema::hasColumn('client_sales', 'deleted_by')) {
+                $table->unsignedBigInteger('deleted_by')->nullable();
+            }
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('client_sales', function (Blueprint $table) {
+            if (Schema::hasColumn('client_sales', 'deleted_at')) {
+                $table->dropColumn('deleted_at');
+            }
+            if (Schema::hasColumn('client_sales', 'deleted_by')) {
+                $table->dropColumn('deleted_by');
+            }
+        });
+    }
+};

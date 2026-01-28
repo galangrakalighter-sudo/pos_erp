@@ -1,0 +1,121 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom transparent checkbox with green outline and checkmark */
+.custom-checkbox {
+  @apply w-5 h-5 rounded border-2 border-[#28C328] bg-transparent appearance-none cursor-pointer transition;
+  position: relative;
+}
+.custom-checkbox:checked {
+  background-color: transparent;
+}
+.custom-checkbox:checked::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 6px;
+  height: 12px;
+  border: solid #28C328;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  opacity: 0.8;
+}
+
+/* Checkbox putih untuk thead */
+.custom-checkbox-white {
+  @apply w-5 h-5 rounded border-2 border-white bg-transparent appearance-none cursor-pointer transition;
+  position: relative;
+}
+.custom-checkbox-white:checked {
+  background-color: transparent;
+}
+.custom-checkbox-white:checked::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 6px;
+  height: 12px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  opacity: 0.8;
+}
+
+/* Checkbox abu untuk tbody */
+.custom-checkbox-gray {
+  @apply w-5 h-5 rounded border-2 border-gray-400 bg-transparent appearance-none cursor-pointer transition;
+  position: relative;
+}
+.custom-checkbox-gray:checked {
+  background-color: transparent;
+}
+.custom-checkbox-gray:checked::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 6px;
+  height: 12px;
+  border: solid #9ca3af; /* Tailwind gray-400 */
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  opacity: 0.8;
+}
+
+/* History table styling */
+.history-table {
+  @apply min-w-full text-xs;
+}
+
+.history-table th {
+  @apply p-2 text-left bg-[#28C328] text-white font-semibold;
+}
+
+.history-table td {
+  @apply p-2 border-b border-gray-100;
+}
+
+.history-table tr:hover {
+  @apply bg-gray-50;
+}
+
+/* Action badge styling */
+.action-badge {
+  @apply px-2 py-1 rounded-full text-xs font-semibold;
+}
+
+.action-badge.created {
+  @apply bg-green-100 text-green-800;
+}
+
+.action-badge.updated {
+  @apply bg-blue-100 text-blue-800;
+}
+
+.action-badge.stock-added {
+  @apply bg-yellow-100 text-yellow-800;
+}
+
+.action-badge.deleted {
+  @apply bg-red-100 text-red-800;
+}
+
+/* Change indicator styling */
+.change-indicator {
+  @apply inline-flex items-center gap-1;
+}
+
+.change-from {
+  @apply text-red-600 line-through;
+}
+
+.change-to {
+  @apply text-green-600 font-semibold;
+}
+
+.change-arrow {
+  @apply text-gray-400 mx-1;
+}
