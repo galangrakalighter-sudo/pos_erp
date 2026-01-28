@@ -382,9 +382,27 @@
                                 </span>
                             </div>
                         </th>
+                        <th class="p-3 cursor-pointer select-none" @click="sortBy('quantity')">
+                            <div class="flex items-center gap-1 justify-center">
+                                <span>Item Name</span>
+                                <span class="flex flex-col">
+                                    <svg :class="{'opacity-100': sortKey==='total_items' && sortAsc, 'opacity-50': !(sortKey==='total_items' && sortAsc)}" class="w-3 h-3" fill="white" viewBox="0 0 20 20"><path d="M10 6l-4 4h8l-4-4z"/></svg>
+                                    <svg :class="{'opacity-100': sortKey==='total_items' && !sortAsc, 'opacity-50': !(sortKey==='total_items' && !sortAsc)}" class="w-3 h-3 -mt-1" fill="white" viewBox="0 0 20 20"><path d="M10 14l4-4H6l4 4z"/></svg>
+                                </span>
+                            </div>
+                        </th>
                         <th class="p-3 cursor-pointer select-none" @click="sortBy('total_items')">
                             <div class="flex items-center gap-1 justify-center">
                                 <span>Total Items</span>
+                                <span class="flex flex-col">
+                                    <svg :class="{'opacity-100': sortKey==='total_items' && sortAsc, 'opacity-50': !(sortKey==='total_items' && sortAsc)}" class="w-3 h-3" fill="white" viewBox="0 0 20 20"><path d="M10 6l-4 4h8l-4-4z"/></svg>
+                                    <svg :class="{'opacity-100': sortKey==='total_items' && !sortAsc, 'opacity-50': !(sortKey==='total_items' && !sortAsc)}" class="w-3 h-3 -mt-1" fill="white" viewBox="0 0 20 20"><path d="M10 14l4-4H6l4 4z"/></svg>
+                                </span>
+                            </div>
+                        </th>
+                        <th class="p-3 cursor-pointer select-none" @click="sortBy('quantity')">
+                            <div class="flex items-center gap-1 justify-center">
+                                <span>Quantity</span>
                                 <span class="flex flex-col">
                                     <svg :class="{'opacity-100': sortKey==='total_items' && sortAsc, 'opacity-50': !(sortKey==='total_items' && sortAsc)}" class="w-3 h-3" fill="white" viewBox="0 0 20 20"><path d="M10 6l-4 4h8l-4-4z"/></svg>
                                     <svg :class="{'opacity-100': sortKey==='total_items' && !sortAsc, 'opacity-50': !(sortKey==='total_items' && !sortAsc)}" class="w-3 h-3 -mt-1" fill="white" viewBox="0 0 20 20"><path d="M10 14l4-4H6l4 4z"/></svg>
@@ -428,7 +446,9 @@
                                 <span class="font-mono text-sm" x-text="sale.order_number"></span>
                             </td>
                             <td class="p-3 align-middle" x-text="new Date(sale.sale_date).toLocaleDateString('id-ID')"></td>
+                            <td class="p-3 align-middle" x-text="sale.items[0].item_name"></td>
                             <td class="p-3 align-middle" x-text="sale.total_items"></td>
+                            <td class="p-3 align-middle" x-text="sale.items[0].quantity"></td>
                             <td class="p-3 align-middle">Rp<span x-text="Number(sale.total_amount).toLocaleString('id-ID')"></span></td>
                             <td class="p-3 align-middle" x-text="sale.payment_method"></td>
                             <td class="p-3 align-middle">
@@ -1299,6 +1319,7 @@ function salesHistory() {
                 filtered = filtered.filter(sale => 
                     sale.order_number.toLowerCase().includes(searchLower)
                 );
+                
             }
             
             if (this.status) {
@@ -1449,6 +1470,8 @@ function salesHistory() {
                 } else {
                     this.sales = [];
                 }
+
+                console.log(this.sales);
                 
                 this.error = null;
             } catch (error) {
