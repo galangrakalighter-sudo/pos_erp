@@ -166,11 +166,11 @@
                                         Payment
                                     </button>
                                 </template>
-                                <template x-if="po.status === 'approved' && po.payment_status === 'paid'">
+                                {{-- <template x-if="po.status === 'approved' && po.payment_status === 'paid'">
                                     <button @click="markAsReceived(po.id)" class="text-orange-600 hover:text-orange-800 text-sm font-medium">
                                         Received
                                     </button>
-                                </template>
+                                </template> --}}
                             </div>
                         </td>
                     </tr>

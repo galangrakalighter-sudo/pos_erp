@@ -142,6 +142,11 @@
                                         Delete
                                     </button>
                                 </template>
+                                <template x-if="po.status === 'approved' && po.payment_status === 'paid'">
+                                    <button @click="markAsReceived(po.id)" class="text-red-600 hover:text-red-800 text-sm font-medium">
+                                        Received
+                                    </button>
+                                </template>
                             </div>
                         </td>
                     </tr>
@@ -1182,6 +1187,10 @@ function purchaseOrder() {
         },
         
         addItemToPO(item) {
+            if(item.tersedia <= 0){
+                alert('Barang Sudah Habis');
+                return;
+            }
             const existingItem = this.selectedItems.find(i => i.id === item.id);
             if (existingItem) {
                 existingItem.quantity += 1;
@@ -1431,6 +1440,33 @@ function purchaseOrder() {
                     }
                 }
             });
+        },
+
+        async markAsReceived(poId, { silent = false } = {}) {
+            if (!silent) {
+                if (!confirm('Apakah Anda yakin ingin menandai PO ini sebagai received?')) return;
+            }
+            
+            try {
+                const response = await fetch(`/client/purchase-orders/${poId}/received`, {
+                    method: 'PUT',
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').getAttribute('content')
+                    }
+                });
+                
+                if (response.ok) {
+                    await this.loadPurchaseOrders();
+                    
+                    if (!silent) this.showDetailModal = false;
+                    if (!silent) this.showSuccessNotification('PO berhasil ditandai sebagai received!');
+                    window.location.reload();
+                }
+            } catch (error) {
+                console.error('Error marking PO as received:', error);
+                if (!silent) this.showErrorNotification('Gagal update status PO');
+            }
         },
         
         getStatusClass(status) {

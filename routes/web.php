@@ -215,6 +215,16 @@ Route::middleware(['auth', 'web'])->group(function () {
         return app(\App\Http\Controllers\ClientStockController::class)->index(request());
     })->name('client.stock-items.index');
     
+    // Route::get('/client/stock-items', function () {
+    //     return app(\App\Http\Controllers\ClientStockController::class)->index(request());
+    // })->name('client.stock-items.index');
+
+    Route::put('/client/purchase-orders/{id}/received', function ($id) {
+        return app(\App\Http\Controllers\PurchaseOrderController::class)->markAsReceived($id);
+    })->name('admin.purchase-orders.received');
+
+    
+    
     Route::post('/client/stock-items', function () {
         return app(\App\Http\Controllers\ClientStockController::class)->store(request());
     })->name('client.stock-items.store');

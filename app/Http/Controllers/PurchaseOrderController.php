@@ -250,6 +250,13 @@ public function markAsReceived($id): JsonResponse
 
         $purchaseOrder->update(['status' => 'received']);
 
+        // Ambil Data Dari Table Purchase Order Items
+        $purchaseOrderItems = PurchaseOrderItem::where('purchase_order_id', $purchaseOrder->id)->get();
+        foreach($purchaseOrderItems as $po_items){
+            StockItem::where('sku', $po_items->sku)
+            ->decrement('tersedia', $po_items->quantity);
+        }
+
         return response()->json(['message' => 'Purchase order marked as received successfully']);
     }
 

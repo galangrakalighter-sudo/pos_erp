@@ -296,7 +296,7 @@
                     </div>
                     <div>
                         <label class="block font-semibold mb-2">Jumlah Tersedia</label>
-                        <input type="number" x-model="unit" class="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-700 placeholder-gray-400" placeholder="Masukkan jumlah tersedia (contoh: 50)">
+                        <input type="number" x-model="unit" min="0" @input="if (unit < 0) unit = 0" class="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-700 placeholder-gray-400" placeholder="Masukkan jumlah tersedia (contoh: 50)">
                     </div>
                 </div>
                 <!-- Kanan -->
@@ -616,7 +616,7 @@
                     </div>
                     <div>
                         <label class="block font-semibold mb-2">Tersedia</label>
-                        <input type="number" x-model="editTersedia" class="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-700 placeholder-gray-400">
+                        <input type="number" x-model="editTersedia" min="0" @input="if (editTersedia < 0) editTersedia = 0" class="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-700 placeholder-gray-400">
                     </div>
 
                     <div>
